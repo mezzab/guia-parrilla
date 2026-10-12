@@ -47,6 +47,8 @@ a{color:var(--dim)}
 .topnav a{font-family:var(--display);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:4px 0}
 .topnav a:hover,.topnav a:focus-visible{color:var(--dim);outline:none}
 .topnav a.go{margin-left:auto;color:var(--dim);border:1px solid var(--dim);padding:4px 10px}
+.topnav .theme{font-family:var(--display);font-size:13px;letter-spacing:.1em;padding:4px 10px;color:var(--muted);border-color:var(--line)}
+.topnav .theme:hover{color:var(--dim);border-color:var(--dim)}
 .design{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;align-items:start}
 @media (max-width:860px){.design{grid-template-columns:1fr}}
 .design .out{min-width:0}
@@ -183,7 +185,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 
 
 <div class="page">
-<nav class="topnav"><a href="#partes">Partes</a><a href="#fisica">Física</a><a href="#boca">Boca</a><a href="#pulmon">Pulmón</a><a href="#garganta">Garganta</a><a href="#camara">Cámara</a><a href="#campana">Campana</a><a href="#cano">Caño</a><a href="#aire">Aire</a><a href="#aprendido">Aprendido</a><a href="#disena" class="go">Diseñá la tuya →</a></nav>
+<nav class="topnav"><a href="#partes">Partes</a><a href="#fisica">Física</a><a href="#boca">Boca</a><a href="#pulmon">Pulmón</a><a href="#garganta">Garganta</a><a href="#camara">Cámara</a><a href="#campana">Campana</a><a href="#cano">Caño</a><a href="#aire">Aire</a><a href="#aprendido">Aprendido</a><a href="#disena" class="go">Diseñá la tuya →</a><button type="button" id="theme" class="theme" aria-label="Cambiar tema" title="Tema: automático / claro / oscuro">◐ Auto</button></nav>
 <main>
 <header>
 <div class="titleblock">
@@ -191,7 +193,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div><small>Autor</small><div class="v">Marcos Mezzabotta</div></div>
 <div><small>Lámina</small><div class="v">Guía del tiraje</div></div>
 <div><small>Fecha</small><div class="v">10·2026</div></div>
-<div><small>Rev.</small><div class="v">32</div></div>
+<div><small>Rev.</small><div class="v">38</div></div>
 <div class="repo"><small>Fuente</small><div class="v"><a href="https://github.com/mezzab/guia-parrilla">github.com/mezzab/guia-parrilla</a> · <a href="https://mezzab.github.io/guia-parrilla/">mezzab.github.io/guia-parrilla</a></div></div>
 </div>
 <h1>Guía del tiraje</h1>
@@ -472,6 +474,14 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 
 <script>
 (function(){
+  // tema: auto (sigue al sistema) / claro / oscuro, guardado en el navegador
+  (function(){
+    var modes=['auto','light','dark'], labels={auto:'◐ Auto',light:'○ Claro',dark:'● Oscuro'}, b=document.getElementById('theme'), m='auto';
+    try{m=localStorage.getItem('parrilla-theme')||'auto'}catch(e){}
+    function apply(){ if(m==='auto')document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme',m); b.textContent=labels[m]; }
+    apply();
+    b.addEventListener('click',function(){ m=modes[(modes.indexOf(m)+1)%3]; try{localStorage.setItem('parrilla-theme',m)}catch(e){} apply(); });
+  })();
   var EX={W:180,H:65,hog:60,dw:25,dh:26,r:15,g:12,arr:35,ang:35,copa:17,rect:20,camAng:45,flue:40,losa:90,techo:290,marg:5,hc:4,tg:200};
   var S=Object.assign({},EX);
   var CT=[
