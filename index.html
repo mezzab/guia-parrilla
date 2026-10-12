@@ -103,7 +103,7 @@ button.hot{background:var(--dim);color:#0b1419;border-color:var(--dim)}
   @page{size:A4;margin:12mm 12mm 14mm}
   *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
   body{padding:0;font-size:11.5pt;line-height:1.4;background:#fff}
-  .topnav,aside.board,.try,button,.toast,.screen-only{display:none!important}
+  .topnav,aside.board,.try,button,.toast,.screen-only,#aprendido,#disena .status,#disena .reads{display:none!important}
   .print-only{display:block}
   .design{display:block}
   figure svg#svgFrente0[hidden]{display:block!important;margin-top:10mm}
@@ -111,9 +111,12 @@ button.hot{background:var(--dim);color:#0b1419;border-color:var(--dim)}
   #disena figure svg{width:100%;max-height:170mm;border:1px solid var(--line);padding:5mm;background:var(--panel2)}
   #disena figure svg#svgFrente0{max-height:none;break-before:page}
   h3{break-after:avoid}
+  table.reglas{max-width:none;font-size:10.5pt} table.reglas th{text-align:left;padding:6px 10px;border-bottom:2px solid var(--fg);font-weight:600}
+  table.reglas td{text-align:left;font-weight:400;vertical-align:top} table.reglas td:first-child{color:var(--fg);font-weight:600} table.reglas td:last-child{white-space:nowrap;font-weight:600}
+  table.reglas tr.ok td:last-child{color:var(--ok)} table.reglas tr.bad td:last-child{color:var(--bad)}
   figure,.rules,.status,.reads,table.summary,.pair>div{break-inside:avoid}
   section{padding-block:18px 10px;break-before:auto}
-  #disena,#fisica,#pulmon,#campana,#aprendido{break-before:page}
+  #disena,#fisica,#pulmon,#campana{break-before:page}
   h1{font-size:52px} h2{font-size:26px}
   .flow{animation:none;stroke-dasharray:none}
   .rule{padding:6px 0}
@@ -195,7 +198,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div><small>Autor</small><div class="v">Marcos Mezzabotta</div></div>
 <div><small>Lámina</small><div class="v">Guía del tiraje</div></div>
 <div><small>Fecha</small><div class="v">10·2026</div></div>
-<div><small>Rev.</small><div class="v">38</div></div>
+<div><small>Rev.</small><div class="v">40</div></div>
 <div class="repo"><small>Fuente</small><div class="v"><a href="https://github.com/mezzab/guia-parrilla">github.com/mezzab/guia-parrilla</a> · <a href="https://mezzab.github.io/guia-parrilla/">mezzab.github.io/guia-parrilla</a></div></div>
 </div>
 <h1>Guía del tiraje</h1>
@@ -445,8 +448,9 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div class="reads" id="reads"></div>
 <h3>Medidas para pasarle al albañil</h3>
 <table class="summary" id="tabla"></table>
-<div class="try"><button class="hot" id="copy">Copiar medidas</button><button id="dlpng">Descargar corte y vista</button><button id="dl">Descargar guía con corte y vista</button></div>
-<p class="screen-only" style="font-size:13px;color:var(--muted);margin-top:6px">"Corte y vista" baja una imagen PNG en papel blanco con los dos dibujos a escala y las medidas, lista para mandar por WhatsApp. "Guía" baja un archivo HTML igual a este pero que abre con tus medidas, para quien quiera leer el porqué. Imprimir (Ctrl+P) saca la guía entera y cierra con la lámina del plano.</p>
+<div class="print-only"><h3>Reglas de la guía y cómo las cumple este diseño</h3><table class="summary reglas" id="reglasPrint"></table></div>
+<div class="try"><button class="hot" id="copy">Copiar medidas</button><button id="dlpng">Descargar corte y vista</button><button id="dl">Descargar guía con corte y vista (PDF)</button></div>
+<p class="screen-only" style="font-size:13px;color:var(--muted);margin-top:6px">"Corte y vista" baja una imagen PNG en papel blanco con los dos dibujos a escala y las medidas, lista para mandar por WhatsApp. "Guía (PDF)" abre el diálogo de impresión del navegador: elegí "Guardar como PDF". Sale la guía con las reglas y su porqué, sin el tablero ni las conclusiones, y cierra con el plano (corte y frente), las medidas y la tabla de reglas con lo recomendado y lo que cumple este diseño.</p>
 
 </div>
 </div>
@@ -510,7 +514,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     d.topFloor=d.flueBot+p.losa; d.techoC=p.techo-p.losa; d.libre=p.techo-d.topFloor; d.okTecho=d.libre>=(p.marg||0);
     var T=p.tg+273.15; d.P=3460*p.hc*(1/293.15-1/T); d.Q=0.65*d.Af*Math.sqrt(2*d.P/0.8); d.V=d.Q/d.A; d.Vg=d.Q/d.Ag;
     d.okLab=d.over>=20&&d.over<=40&&d.overPecho>=5; d.okArr=p.arr>=p.H/2&&p.arr<=p.H; d.okAng=p.ang>=30&&p.ang<=45; d.okFlue=d.pct>=d.minPct;
-    d.okG=p.g>=10&&p.g<=15&&d.Ag>=d.Af; d.okCam=p.rect>=15; d.okCamAng=p.camAng>=30&&p.camAng<=45; d.okH=p.H<=70; d.okHog=d.labx>0;
+    d.okG=p.g>=10&&p.g<=15&&d.Ag>=d.Af; d.okCam=p.rect>=15&&p.rect<=20; d.okCamAng=p.camAng>=30&&p.camAng<=45; d.okH=p.H<=70; d.okHog=d.labx>0;
     return d;
   }
 
@@ -680,18 +684,28 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var v=b.getAttribute('data-set'); if(v==='reset'){S=Object.assign({},EX)} else {Object.assign(S,JSON.parse(v))} render();
   })});
 
-  function reads(d,p){
-    var r=[
-      ['oA',fmt(d.A,2)+' m²','boca '+p.W+' × '+p.H+(d.okH?'':' · alto > 70, no recomendado'),d.okH?undefined:false],
-      ['oF',(p.sq?'□':'Ø')+p.flue+' = '+fmt(d.pct,1)+' %','caño '+(p.sq?'cuadrado, mín. 15 %':'redondo, mín. 10 %'),d.okFlue],
-      ['oG',p.g+' cm = '+fmt(p.g/p.H*100)+' % del alto','garganta; mínima '+fmt(d.gmin2,1)+' cm ('+fmt(d.gmin2/p.H*100)+' %)',d.okG],
-      ['oL',(d.over>=0?'+':'')+R(d.over)+' cm','garganta, altura sobre la boca (20 a 40)',d.okLab],
-      ['oC',p.rect+' cm','pared recta sobre la garganta (15 a 20)',d.okCam],
-      ['oT',R(d.topFloor)+' cm','encuentro campana‑caño, desde el piso'],
-      ['oTe',R(d.libre)+' cm','libres entre el encuentro campana‑caño y el techo (pediste ≥ '+(p.marg||0)+')',d.okTecho]
+  // todas las reglas de la guía con lo recomendado y lo que da tu diseño
+  function rules(p,d){
+    var cp=Math.min(p.copa||0,d.labx*0.6);
+    return [
+      {n:'Alto de boca',v:p.H+' cm',r:'hasta 70; 60 a 65 ideal',ok:d.okH},
+      {n:'Sección del caño',v:(p.sq?'□':'Ø')+p.flue+' = '+fmt(d.pct,1)+' % de la boca',r:(p.sq?'cuadrado: mínimo 15 %':'redondo: mínimo 10 %')+'; 12 a 13 % recomendado',ok:d.okFlue},
+      {n:'Ancho de garganta',v:p.g+' cm ('+fmt(d.Ag/d.Af,1)+' veces el caño)',r:'10 a 15, referencia 12; área mayor que la del caño',ok:d.okG},
+      {n:'Altura de la garganta',v:'+'+R(d.over)+' sobre la boca',r:'20 a 40 sobre la boca y por encima del pecho',ok:d.okLab},
+      {n:'Arranque del pulmón',v:p.arr+' cm ('+R(p.arr/p.H*100)+' % de la boca)',r:'50 % del alto de la boca o más, nunca sobre la boca',ok:d.okArr},
+      {n:'Ángulo del pulmón',v:p.ang+'° con la vertical',r:'30 a 45°; 30 a 35° preferido',ok:d.okAng},
+      {n:'Copa',v:R(cp)+' cm de hondo, media caña',r:'15 a 25 cm, nunca plana',ok:cp>=15&&cp<=25},
+      {n:'Cámara de humo',v:p.rect+' cm sobre la garganta',r:'15 a 20 (1,5 a 2 gargantas)',ok:d.okCam},
+      {n:'Laterales de la campana',v:p.camAng+'° con la vertical',r:'30 a 45°, nunca más de 45°',ok:d.okCamAng},
+      {n:'Margen al techo',v:R(d.libre)+' cm libres (encuentro a '+R(d.topFloor)+' del piso)',r:'el que pediste: '+(p.marg||0)+' cm o más',ok:d.okTecho},
+      {n:'Remate',v:'a definir en obra',r:'1 m sobre la cumbrera, sombrerete',ok:undefined}
     ];
-    document.getElementById('reads').innerHTML=r.map(function(x){return '<div class="read '+(x[3]===undefined?'':(x[3]?'ok':'bad'))+'"><b>'+x[1]+'</b><span>'+x[2]+'</span></div>'}).join('')
+  }
+  function reads(d,p){
+    var r=rules(p,d);
+    document.getElementById('reads').innerHTML=r.filter(function(x){return x.ok!==undefined}).map(function(x){return '<div class="read '+(x.ok?'ok':'bad')+'"><b>'+x.v+'</b><span>'+x.n+' · recomendado: '+x.r+'</span></div>'}).join('')
       +'<div class="est">Estimaciones: tiro '+fmt(d.P)+' Pa · caudal '+fmt(R(d.Q*3600/10)*10)+' m³/h · '+fmt(d.V,2)+' m/s en la boca · '+fmt(d.Vg,1)+' m/s en la garganta</div>';
+    var rt=document.getElementById('reglasPrint'); if(rt) rt.innerHTML='<tr><th>Regla</th><th>Recomendado</th><th>Este diseño</th><th></th></tr>'+r.map(function(x){return '<tr class="'+(x.ok===undefined?'':(x.ok?'ok':'bad'))+'"><td>'+x.n+'</td><td>'+x.r+'</td><td>'+x.v+'</td><td>'+(x.ok===undefined?'—':(x.ok?'✓ cumple':'✗ no cumple'))+'</td></tr>'}).join('');
   }
 
   function render(){
@@ -719,7 +733,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     if(!d.okAng)probs.push('pulmón fuera de 30 a 45°');
     if(!d.okLab)probs.push(d.overPecho<5?'garganta dentro de la curva del pecho':d.over<20?'garganta demasiado baja (+'+R(d.over)+' sobre la boca)':'garganta demasiado alta (+'+R(d.over)+' sobre la boca)');
     if(!d.okG)probs.push('garganta fuera de 10 a 15 o menor que el caño');
-    if(!d.okCam)probs.push('menos de 15 rectos sobre la garganta');
+    if(!d.okCam)probs.push(p.rect<15?'menos de 15 rectos sobre la garganta':'más de 20 rectos sobre la garganta: altura que no suma');
     if(!d.okCamAng)probs.push('laterales de campana fuera de 30 a 45°');
     if(!d.okFlue)probs.push('caño por debajo del 10 %');
     var st=document.getElementById('capCorte'); st.className='status'+(ok?'':' bad');
@@ -775,15 +789,6 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     img.onerror=function(){URL.revokeObjectURL(url);saveFile('parrilla-'+p.W+'x'+p.H+'-corte-y-frente.svg',svg)};
     img.src=url;
   });
-  document.getElementById('dl').addEventListener('click',function(){
-    // copia de la guía con las medidas actuales como valores por defecto
-    var doc=document.documentElement.cloneNode(true);
-    doc.querySelector('#ctls').innerHTML=''; doc.querySelectorAll('svg').forEach(function(s){s.innerHTML=''});
-    ['legPartes','reads','tabla','capCorte'].forEach(function(id){var e=doc.querySelector('#'+id);if(e)e.innerHTML=''});
-    var html='<!doctype html>\n'+doc.outerHTML;
-    var ex='var EX='+JSON.stringify(S)+';';
-    html=html.replace(/var EX=\{[^\n]*?\};/,ex).replace('EX.sq=0; S.sq=0;','EX.sq='+(S.sq?1:0)+'; S.sq=EX.sq;').replace(/parrilla-v2/g,'parrilla-'+Date.now());
-    saveFile('guia-parrilla-'+S.W+'x'+S.H+'.html',new Blob([html],{type:'text/html'}));
-  });
+  document.getElementById('dl').addEventListener('click',function(){window.print()});
 })();
 </script>
