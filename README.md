@@ -3,7 +3,8 @@
 Guía interactiva para dimensionar la trampa de humo (pulmón, garganta, cámara, campana y caño) de una parrilla de obra argentina de boca grande, pensada para un quincho cerrado sin extractor.
 
 - **Proyecto:** Parrilla argentina · **Lámina:** Guía del tiraje · **Autor:** Marcos Mezzabotta
-- **Guía en línea:** abrir `index.html` (es un único archivo, sin dependencias externas salvo la tipografía Saira de Google Fonts).
+- **Guía en línea:** <https://mezzab.github.io/guia-parrilla/> (GitHub Pages, se actualiza con cada push a `main`).
+- **Sin conexión:** descargar `index.html` y abrirlo en cualquier navegador; es un único archivo sin dependencias salvo la tipografía Saira de Google Fonts.
 
 ## Qué hay adentro
 

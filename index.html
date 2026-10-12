@@ -44,6 +44,10 @@ main{min-width:0}
 .titleblock{display:grid;grid-template-columns:1.6fr 1fr 1fr .7fr;border:2px solid var(--trace);margin-block:24px 8px;font-family:var(--display);text-transform:uppercase;letter-spacing:.06em}
 .titleblock>div{padding:10px 12px;border-right:1px solid var(--trace);min-width:0}
 .titleblock>div:last-child{border-right:0}
+.titleblock .repo{grid-column:1/-1;border-top:1px solid var(--trace);text-transform:none;letter-spacing:0;font-family:var(--body)}
+.titleblock .repo .v{font-size:13px;font-weight:400}
+.titleblock .repo a{color:var(--dim);text-decoration:none}
+.titleblock .repo a:hover{text-decoration:underline}
 .titleblock small{display:block;font:300 11px var(--body);letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
 .titleblock .v{font-size:20px;font-weight:700;margin-top:2px}
 .titleblock .proj{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--trace)}
@@ -151,7 +155,8 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div><small>Autor</small><div class="v">Marcos Mezzabotta</div></div>
 <div><small>Lámina</small><div class="v">Guía del tiraje</div></div>
 <div><small>Fecha</small><div class="v">10·2026</div></div>
-<div><small>Rev.</small><div class="v">24</div></div>
+<div><small>Rev.</small><div class="v">32</div></div>
+<div class="repo"><small>Fuente</small><div class="v"><a href="https://github.com/mezzab/guia-parrilla">github.com/mezzab/guia-parrilla</a> · <a href="https://mezzab.github.io/guia-parrilla/">mezzab.github.io/guia-parrilla</a></div></div>
 </div>
 <h1>Guía del tiraje</h1>
 <p class="lead">Por qué una parrilla devuelve humo y qué geometría lo evita. Primero las partes y las reglas con su porqué; al final, un tablero donde dibujás la tuya a escala y ves qué cumple y qué no.</p>
