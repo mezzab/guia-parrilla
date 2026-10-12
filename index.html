@@ -731,8 +731,12 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var html='<!doctype html>\n'+doc.outerHTML;
     var ex='var EX='+JSON.stringify(S)+';';
     html=html.replace(/var EX=\{[^\n]*?\};/,ex).replace('EX.sq=0; S.sq=0;','EX.sq='+(S.sq?1:0)+'; S.sq=EX.sq;').replace(/parrilla-v2/g,'parrilla-'+Date.now());
-    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
-    a.download='guia-parrilla-'+S.W+'x'+S.H+'.html';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+    var name='guia-parrilla-'+S.W+'x'+S.H+'.html';
+    var fallback=function(){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
+    // en claude.ai la descarga pasa por la capacidad "downloads"; en GitHub Pages o archivo local, por el enlace
+    if(window.claude&&typeof window.claude.use==='function'){
+      window.claude.use('downloads').then(function(dl){ if(!dl) return fallback(); return dl.save({filename:name,data:html}).catch(function(e){ if(e&&e.code!=='declined'&&e.code!=='rate_limited') fallback(); }); });
+    } else fallback();
   });
 })();
 </script>
