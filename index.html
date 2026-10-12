@@ -164,6 +164,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 .toast.on{opacity:1}
 
 /* capas del dibujo */
+/*SVGCSS*/
 .wall{fill:var(--line);stroke:var(--trace);stroke-width:1}
 .tr{stroke:var(--trace);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .trk{stroke:var(--trace);stroke-width:3;fill:none;stroke-linecap:square;stroke-linejoin:miter}
@@ -179,6 +180,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 .lbls{font:300 11.5px var(--body);fill:var(--muted);letter-spacing:.02em}
 .big{font:600 16px var(--body);fill:var(--dim)}
 .bigh{font:700 18px var(--body);fill:var(--fg)}
+/*/SVGCSS*/
 @media (prefers-reduced-motion:no-preference){.flow{stroke-dasharray:7 7;animation:dash 1.4s linear infinite}@keyframes dash{to{stroke-dashoffset:-28}}}
 </style>
 
@@ -443,8 +445,8 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div class="reads" id="reads"></div>
 <h3>Medidas para pasarle al albañil</h3>
 <table class="summary" id="tabla"></table>
-<div class="try"><button class="hot" id="copy">Copiar medidas</button><button id="print">Imprimir / guardar PDF</button><button id="dl">Descargar guía con estas medidas</button></div>
-<p class="screen-only" style="font-size:13px;color:var(--muted);margin-top:6px">Imprimir saca la guía entera en papel blanco, sin tablero ni botones, y cierra con la lámina del plano: corte, frente y la tabla de medidas. Descargar genera un archivo HTML igual a este pero que abre con tus medidas como punto de partida, para mandárselo al albañil.</p>
+<div class="try"><button class="hot" id="copy">Copiar medidas</button><button id="dlpng">Descargar corte y vista</button><button id="dl">Descargar guía con corte y vista</button></div>
+<p class="screen-only" style="font-size:13px;color:var(--muted);margin-top:6px">"Corte y vista" baja una imagen PNG en papel blanco con los dos dibujos a escala y las medidas, lista para mandar por WhatsApp. "Guía" baja un archivo HTML igual a este pero que abre con tus medidas, para quien quiera leer el porqué. Imprimir (Ctrl+P) saca la guía entera y cierra con la lámina del plano.</p>
 
 </div>
 </div>
@@ -741,7 +743,38 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(window.__med).then(function(){show('Medidas copiadas')},function(){sel()})}else sel();
     function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('tabla'));var s=getSelection();s.removeAllRanges();s.addRange(r);show('Seleccionado: copiá con Ctrl+C')}
   });
-  document.getElementById('print').addEventListener('click',function(){window.print()});
+  function saveFile(name,data){
+    var fallback=function(){var a=document.createElement('a');a.href=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type:'application/octet-stream'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
+    // en claude.ai la descarga pasa por la capacidad "downloads"; en GitHub Pages o archivo local, por el enlace
+    if(window.claude&&typeof window.claude.use==='function'){
+      window.claude.use('downloads').then(function(dl){ if(!dl) return fallback(); return dl.save({filename:name,data:data}).catch(function(e){ if(e&&e.code!=='declined'&&e.code!=='rate_limited') fallback(); }); });
+    } else fallback();
+  }
+  // PNG con corte y frente, en papel blanco, con las fuentes embebidas
+  var PAPER={'--bg':'#fff','--panel':'#fff','--panel2':'#f3f4f1','--line':'#8a9199','--fg':'#111','--muted':'#444','--trace':'#111','--dim':'#0b4f8a','--hot':'#b3261e','--hot2':'#c77a12','--brass':'#6b5410','--cool':'#0b4f8a','--ok':'#1b6e3d','--bad':'#a52717','--body':'Barlow, sans-serif','--display':'"Barlow Condensed", sans-serif'};
+  function paper(s){return s.replace(/var\((--[\w-]+)\)/g,function(m,k){return PAPER[k]||'#000'})}
+  document.getElementById('dlpng').addEventListener('click',function(){
+    var css=document.querySelector('style').textContent, m=css.match(/\/\*SVGCSS\*\/([\s\S]*?)\/\*\/SVGCSS\*\//), fonts=css.match(/@font-face\{[^}]*\}/g)||[];
+    var c=document.getElementById('svgCorte'), f=document.getElementById('svgFrente0');
+    var vc=c.getAttribute('viewBox').split(' ').map(Number), vf=f.getAttribute('viewBox').split(' ').map(Number);
+    var pad=40, head=64, W=Math.max(vc[2],vf[2])+pad*2, H=head+vc[3]+pad*2+vf[3]+pad, p=S, d=derive(p);
+    var title='Parrilla argentina · boca '+p.W+' × '+p.H+' · corte lateral y vista de frente';
+    var sub='Medidas en cm desde el plano de cocción · pulmón '+p.ang+'° desde '+p.arr+' · garganta '+p.g+' · cámara de humo '+p.rect+' sobre la garganta · campana laterales '+p.camAng+'° · caño '+(p.sq?'□':'Ø')+p.flue+' desde '+R(d.flueBot)+' · losa a '+p.losa+' · techo a '+p.techo;
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><style>'+fonts.join('')+paper(m?m[1]:'')+' text{font-family:Barlow,sans-serif}</style>'
+      +'<rect width="100%" height="100%" fill="#fff"/><rect x="8" y="8" width="'+(W-16)+'" height="'+(H-16)+'" fill="none" stroke="#111" stroke-width="2"/>'
+      +'<text x="'+pad+'" y="34" font-size="18" font-weight="700" fill="#111" font-family="Barlow Condensed, Barlow, sans-serif" letter-spacing=".04em">'+title.toUpperCase()+'</text>'
+      +'<text x="'+pad+'" y="54" font-size="12" fill="#444">'+sub+'</text>'
+      +'<svg x="'+pad+'" y="'+head+'" width="'+vc[2]+'" height="'+vc[3]+'" viewBox="'+vc.join(' ')+'">'+paper(c.innerHTML)+'</svg>'
+      +'<line x1="'+pad+'" y1="'+(head+vc[3]+pad)+'" x2="'+(W-pad)+'" y2="'+(head+vc[3]+pad)+'" stroke="#8a9199" stroke-dasharray="6 4"/>'
+      +'<svg x="'+pad+'" y="'+(head+vc[3]+pad*2)+'" width="'+vf[2]+'" height="'+vf[3]+'" viewBox="'+vf.join(' ')+'">'+paper(f.innerHTML)+'</svg></svg>';
+    var url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'})), img=new Image(), k=2;
+    img.onload=function(){
+      var cv=document.createElement('canvas');cv.width=W*k;cv.height=H*k;var g=cv.getContext('2d');g.scale(k,k);g.drawImage(img,0,0);URL.revokeObjectURL(url);
+      cv.toBlob(function(b){saveFile('parrilla-'+p.W+'x'+p.H+'-corte-y-frente.png',b)},'image/png');
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);saveFile('parrilla-'+p.W+'x'+p.H+'-corte-y-frente.svg',svg)};
+    img.src=url;
+  });
   document.getElementById('dl').addEventListener('click',function(){
     // copia de la guía con las medidas actuales como valores por defecto
     var doc=document.documentElement.cloneNode(true);
@@ -750,12 +783,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var html='<!doctype html>\n'+doc.outerHTML;
     var ex='var EX='+JSON.stringify(S)+';';
     html=html.replace(/var EX=\{[^\n]*?\};/,ex).replace('EX.sq=0; S.sq=0;','EX.sq='+(S.sq?1:0)+'; S.sq=EX.sq;').replace(/parrilla-v2/g,'parrilla-'+Date.now());
-    var name='guia-parrilla-'+S.W+'x'+S.H+'.html';
-    var fallback=function(){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
-    // en claude.ai la descarga pasa por la capacidad "downloads"; en GitHub Pages o archivo local, por el enlace
-    if(window.claude&&typeof window.claude.use==='function'){
-      window.claude.use('downloads').then(function(dl){ if(!dl) return fallback(); return dl.save({filename:name,data:html}).catch(function(e){ if(e&&e.code!=='declined'&&e.code!=='rate_limited') fallback(); }); });
-    } else fallback();
+    saveFile('guia-parrilla-'+S.W+'x'+S.H+'.html',new Blob([html],{type:'text/html'}));
   });
 })();
 </script>
