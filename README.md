@@ -8,11 +8,14 @@ Guía interactiva para dimensionar la trampa de humo (pulmón, garganta, cámara
 
 ## Qué hay adentro
 
-1. **Partes** — corte con cada elemento numerado.
-2. **Física** — por qué tira: efecto chimenea, penacho y arrastre de aire, garganta laminar (Rumford).
-3. **Boca · Pulmón · Garganta · Cámara · Campana · Caño · Aire** — cada sección explica la regla, la física detrás y muestra un par *bien / mal* dibujado a escala.
-4. **Lo que aprendimos** — conclusiones al reconciliar fuentes que miden desde puntos distintos.
-5. **Diseñá la tuya** — tablero con sliders: corte y frente a escala, veredicto contra todas las reglas, lecturas (sección del caño, garganta, altura al techo, tiro y caudal estimados) y tabla de medidas para el albañil.
+1. **Diseñá la tuya** — arriba de todo: tablero con sliders (boca, losa y techo, hogar, dintel, pulmón, campana y caño con el diámetro también en pulgadas), corte y frente a escala, veredicto contra todas las reglas con lo recomendado al lado, y tabla de medidas para el albañil.
+2. **¿Querés entender más?** — entrada a la guía detallada:
+   - **Partes** — corte con cada elemento numerado.
+   - **Física** — por qué tira: efecto chimenea, penacho y arrastre de aire, garganta laminar (Rumford).
+   - **Boca · Pulmón · Garganta · Cámara · Campana · Caño · Aire** — cada sección explica la regla, la física detrás y muestra un par *bien / mal* dibujado a escala.
+   - **Lo que aprendimos** — conclusiones al reconciliar fuentes que miden desde puntos distintos.
+
+Valores fijos (no son controles): hondura de la copa 15 cm, alto del dintel 26 cm, caño de 4 m, gases a 200 °C.
 
 ## Reglas resumidas (todo referido a la boca)
 

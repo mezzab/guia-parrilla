@@ -46,8 +46,10 @@ a{color:var(--dim)}
 .topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-16px;padding:8px 16px;display:flex;gap:4px 14px;flex-wrap:wrap;align-items:center}
 .topnav a{font-family:var(--display);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:4px 0}
 .topnav a:hover,.topnav a:focus-visible{color:var(--dim);outline:none}
-.topnav a.go{margin-left:auto;color:var(--dim);border:1px solid var(--dim);padding:4px 10px}
-.topnav .theme{font-family:var(--display);font-size:13px;letter-spacing:.1em;padding:4px 10px;color:var(--muted);border-color:var(--line)}
+.topnav a.go{color:var(--dim);border:1px solid var(--dim);padding:4px 10px}
+.btnlink{display:inline-block;font:500 13px var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--dim);border:1px solid var(--dim);padding:7px 12px;text-decoration:none}
+.btnlink:hover{background:var(--dim);color:#0b1419}
+.topnav .theme{margin-left:auto;font-family:var(--display);font-size:13px;letter-spacing:.1em;padding:4px 10px;color:var(--muted);border-color:var(--line)}
 .topnav .theme:hover{color:var(--dim);border-color:var(--dim)}
 .design{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;align-items:start}
 @media (max-width:860px){.design{grid-template-columns:1fr}}
@@ -74,7 +76,7 @@ aside.board{position:sticky;top:calc(env(safe-area-inset-top,0px) + 52px);backgr
 .board h2{font-size:18px;padding:10px 14px;background:var(--panel2);border-bottom:1px solid var(--line);letter-spacing:.1em}
 .board .sub{color:var(--muted);font-size:13px;margin:0;padding:8px 14px 4px}
 .board>#ctls,.board>.btns{padding-inline:14px}
-.ctl{display:grid;grid-template-columns:1fr 64px;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.ctl{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
 .ctl label{font-size:13px;color:var(--muted);letter-spacing:.02em}
 .ctl output{font-family:var(--body);font-weight:600;font-size:20px;text-align:right;color:var(--dim)}
 .ctl input[type=range]{grid-column:1/3;width:100%;height:20px;margin:0;accent-color:var(--dim)}
@@ -190,7 +192,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
   table.reglas tr.ok td:last-child{color:var(--ok)} table.reglas tr.bad td:last-child{color:var(--bad)}
   figure,.rules,.status,.reads,table.summary,.pair>div{break-inside:avoid}
   section{padding-block:10px 6px;break-before:auto}
-  #disena{break-before:page}
+  main{display:flex;flex-direction:column} #disena{order:50;break-before:page}
   h1{font-size:40px} h2{font-size:20px} h3{font-size:14pt;margin-top:.8em}
   .flow{animation:none;stroke-dasharray:none}
   .rule{padding:6px 0}
@@ -201,7 +203,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 
 
 <div class="page">
-<nav class="topnav"><a href="#partes">Partes</a><a href="#fisica">Física</a><a href="#boca">Boca</a><a href="#pulmon">Pulmón</a><a href="#garganta">Garganta</a><a href="#camara">Cámara</a><a href="#campana">Campana</a><a href="#cano">Caño</a><a href="#aire">Aire</a><a href="#aprendido">Aprendido</a><a href="#disena" class="go">Diseñá la tuya →</a><button type="button" id="theme" class="theme" aria-label="Cambiar tema" title="Tema: automático / claro / oscuro">◐ Auto</button></nav>
+<nav class="topnav"><a href="#disena" class="go">Diseñá la tuya</a><a href="#guia">Guía</a><a href="#partes">Partes</a><a href="#fisica">Física</a><a href="#boca">Boca</a><a href="#pulmon">Pulmón</a><a href="#garganta">Garganta</a><a href="#camara">Cámara</a><a href="#campana">Campana</a><a href="#cano">Caño</a><a href="#aire">Aire</a><a href="#aprendido">Aprendido</a><button type="button" id="theme" class="theme" aria-label="Cambiar tema" title="Tema: automático / claro / oscuro">◐ Auto</button></nav>
 <main>
 <header>
 <div class="titleblock">
@@ -209,14 +211,49 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div><small>Autor</small><div class="v">Marcos Mezzabotta</div></div>
 <div><small>Lámina</small><div class="v">Guía del tiraje</div></div>
 <div><small>Fecha</small><div class="v">10·2026</div></div>
-<div><small>Rev.</small><div class="v">43</div></div>
+<div><small>Rev.</small><div class="v">44</div></div>
 <div class="repo"><small>Fuente</small><div class="v"><a href="https://github.com/mezzab/guia-parrilla">github.com/mezzab/guia-parrilla</a> · <a href="https://mezzab.github.io/guia-parrilla/">mezzab.github.io/guia-parrilla</a></div></div>
 </div>
 <h1>Guía del tiraje</h1>
-<p class="lead">Por qué una parrilla devuelve humo y qué geometría lo evita. Primero las partes y las reglas con su porqué; al final, un tablero donde dibujás la tuya a escala y ves qué cumple y qué no.</p>
+<p class="lead">Armá tu parrilla a escala y mirá qué reglas cumple y cuáles no. Si querés entender el porqué de cada una, la guía completa está más abajo.</p>
 </header>
 
 
+
+<section id="disena">
+<div class="step screen-only">Interactivo</div>
+<h2 class="screen-only">Diseñá la tuya</h2>
+<p class="screen-only">Todo el plano se dibuja desde las medidas de la izquierda, en centímetros. Las lecturas marcan en verde lo que cumple las reglas de la guía y en rojo lo que no, siempre con lo recomendado al lado. Lo que elijas queda guardado en tu navegador.</p>
+<div class="print-only"><div class="step">Lámina 2</div><h2>Plano de obra</h2><p>Corte lateral y vista de frente a escala, con las medidas elegidas. Todo en centímetros desde el plano de cocción.</p></div>
+<div class="design">
+<aside class="board" aria-label="Tablero de medidas">
+<h2>Medidas</h2>
+<p class="sub">En centímetros. Todo el plano se dibuja desde acá.</p>
+<div id="ctls"></div>
+<div class="btns"><button class="hot" data-set="reset">Volver al ejemplo</button></div>
+</aside>
+<div class="out">
+<div class="try"><button id="vCorte" class="hot">Corte lateral</button><button id="vFrente">Vista de frente</button></div>
+<figure><svg id="svgCorte" role="img" aria-label="Corte lateral a escala de la parrilla del tablero"></svg><svg id="svgFrente0" role="img" aria-label="Vista de frente a escala de la parrilla del tablero" hidden></svg></figure>
+<div class="status" id="capCorte"></div>
+
+<div class="reads" id="reads"></div>
+<h3>Medidas para pasarle al albañil</h3>
+<table class="summary" id="tabla"></table>
+<div class="print-only"><h3>Reglas de la guía y cómo las cumple este diseño</h3><table class="summary reglas" id="reglasPrint"></table></div>
+<div class="try"><button class="hot" id="copy">Copiar medidas</button><button id="dlpng">Descargar corte y vista</button><button id="dl">Descargar guía con corte y vista (PDF)</button></div>
+<p class="screen-only" style="font-size:13px;color:var(--muted);margin-top:6px">"Corte y vista" baja una imagen PNG en papel blanco con los dos dibujos a escala y las medidas, lista para mandar por WhatsApp. "Guía (PDF)" abre el diálogo de impresión del navegador: elegí "Guardar como PDF". Sale la guía con las reglas y su porqué, sin el tablero ni las conclusiones, y cierra con el plano (corte y frente), las medidas y la tabla de reglas con lo recomendado y lo que cumple este diseño.</p>
+
+</div>
+</div>
+</section>
+
+<section id="guia" class="screen-only">
+<div class="step">La guía</div>
+<h2>¿Querés entender más?</h2>
+<p>Cada regla del tablero tiene su porqué. Acá abajo está la guía completa: cómo se llama cada pieza, la física del tiraje y una sección por pieza con un ejemplo bien y otro mal, dibujados a escala.</p>
+<p><a class="btnlink" href="#partes">Empezar por las partes ↓</a></p>
+</section>
 
 <section id="partes">
 <div class="step">Las partes</div>
@@ -433,39 +470,12 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
 <div class="rule"><b>Copa honda, no estante</b><span>el aire que baja por el fondo de la campana existe (Rumford lo mide); lo que no existe es un "bloqueo". Una media caña de 15 a 25 lo hace girar y el chorro se lo lleva; un plano lo manda a la boca.</span></div>
 <div class="rule"><b>Pared recta sobre la garganta</b><span>nadie la mide directo; sale de KATZ por resta: 15 a 20. Rumford no la tiene. Es la regla más blanda de la guía.</span></div>
 <div class="rule"><b>Caño atrás, recto</b><span>es la construcción codificada (BIA, NFPA 211) y la de ParriSur. Centrarlo sobre la garganta solo aparece en patentes; un codo cuesta más que el desplazamiento.</span></div>
-<div class="rule"><b>Sin extractor</b><span>con Ø40 redondo (10,7 % de una boca de 180 × 65, justo sobre el mínimo; Ø45 da 13,6 % y más margen), remate a 1 m sobre la cumbrera y rejilla de aire, ninguna fuente lo pide. Dejar la cañería eléctrica embutida cuesta nada.</span></div>
-<div class="rule"><b>El techo decide</b><span>la altura del encuentro campana‑caño sale de los laterales a 45°; con techo bajo, las palancas son la pared recta, la boca a 65 o el cono embebido en la losa. El margen entre ese encuentro y el techo no es una regla de tiraje: es lugar de obra para rematar la campana en un collarín recto y pasar el caño con su sello. Si el pasamuros se resuelve dentro de la losa, puede ser 0. En el tablero lo elegís vos.</span></div>
+<div class="rule"><b>Sin extractor</b><span>con Ø40 (15,7″) redondo (10,7 % de una boca de 180 × 65, justo sobre el mínimo; Ø45 da 13,6 % y más margen), remate a 1 m sobre la cumbrera y rejilla de aire, ninguna fuente lo pide. Dejar la cañería eléctrica embutida cuesta nada.</span></div>
+<div class="rule"><b>El techo decide</b><span>la altura del encuentro campana‑caño sale de los laterales a 45°; con techo bajo, las palancas son la pared recta, la boca a 65 o el cono embebido en la losa. Lo único que se pide es que ese encuentro quede bajo el techo: el espacio que sobre es lugar de obra para rematar la campana en un collarín recto y pasar el caño con su sello, y no es una regla de tiraje.</span></div>
 <div class="rule"><b>Lo que no sabemos</b><span>no existe un ensayo de parrillas con geometrías distintas. Las zonas verdes son el solape de reglas de constructores, no un óptimo medido. Plantilla de cartón 1:1 y encendido de prueba antes del revoque.</span></div>
 </div>
 </section>
 
-<section id="disena">
-<div class="step screen-only">Interactivo</div>
-<h2 class="screen-only">Diseñá la tuya</h2>
-<p class="screen-only">Todo el plano se dibuja desde las medidas de la izquierda, en centímetros. Las lecturas marcan en verde lo que cumple las reglas de arriba y en rojo lo que no. Lo que elijas queda guardado en tu navegador.</p>
-<div class="print-only"><div class="step">Lámina 2</div><h2>Plano de obra</h2><p>Corte lateral y vista de frente a escala, con las medidas elegidas. Todo en centímetros desde el plano de cocción.</p></div>
-<div class="design">
-<aside class="board" aria-label="Tablero de medidas">
-<h2>Medidas</h2>
-<p class="sub">En centímetros. Todo el plano se dibuja desde acá.</p>
-<div id="ctls"></div>
-<div class="btns"><button class="hot" data-set="reset">Volver al ejemplo</button></div>
-</aside>
-<div class="out">
-<div class="try"><button id="vCorte" class="hot">Corte lateral</button><button id="vFrente">Vista de frente</button></div>
-<figure><svg id="svgCorte" role="img" aria-label="Corte lateral a escala de la parrilla del tablero"></svg><svg id="svgFrente0" role="img" aria-label="Vista de frente a escala de la parrilla del tablero" hidden></svg></figure>
-<div class="status" id="capCorte"></div>
-
-<div class="reads" id="reads"></div>
-<h3>Medidas para pasarle al albañil</h3>
-<table class="summary" id="tabla"></table>
-<div class="print-only"><h3>Reglas de la guía y cómo las cumple este diseño</h3><table class="summary reglas" id="reglasPrint"></table></div>
-<div class="try"><button class="hot" id="copy">Copiar medidas</button><button id="dlpng">Descargar corte y vista</button><button id="dl">Descargar guía con corte y vista (PDF)</button></div>
-<p class="screen-only" style="font-size:13px;color:var(--muted);margin-top:6px">"Corte y vista" baja una imagen PNG en papel blanco con los dos dibujos a escala y las medidas, lista para mandar por WhatsApp. "Guía (PDF)" abre el diálogo de impresión del navegador: elegí "Guardar como PDF". Sale la guía con las reglas y su porqué, sin el tablero ni las conclusiones, y cierra con el plano (corte y frente), las medidas y la tabla de reglas con lo recomendado y lo que cumple este diseño.</p>
-
-</div>
-</div>
-</section>
 
 <section id="fuentes">
 <div class="step">10</div>
@@ -499,17 +509,18 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     apply();
     b.addEventListener('click',function(){ m=modes[(modes.indexOf(m)+1)%3]; try{localStorage.setItem('parrilla-theme',m)}catch(e){} apply(); });
   })();
-  var EX={W:180,H:65,hog:60,dw:25,dh:26,r:15,g:12,arr:35,ang:35,copa:17,rect:20,camAng:45,flue:40,losa:90,techo:290,marg:5,hc:4,tg:200};
+  var EX={W:180,H:65,hog:60,dw:25,dh:26,r:15,g:12,arr:35,ang:35,copa:15,rect:20,camAng:45,flue:40,losa:90,techo:290,hc:4,tg:200}; /* dh, copa, hc y tg quedan fijos: no son controles */
   var S=Object.assign({},EX);
   var CT=[
-    ['Boca',null],['W','Ancho de boca',120,240,5],['H','Alto de boca',50,90,1],['losa','Losa sobre el piso',80,95,1],['techo','Techo del quincho, desde el piso',220,450,5],['marg','Margen que querés dejar entre el encuentro campana‑caño y el techo',0,40,5],
-    ['Hogar y dintel',null],['hog','Hogar, hasta la cara interior del dintel',45,95,1],['dw','Ancho del dintel',10,40,1],['dh','Alto del dintel',10,40,1],['r','Radio del pecho (hasta el menor lado del dintel)',0,30,1],
-    ['Pulmón',null],['arr','Arranque de la pared inclinada',20,80,1],['ang','Ángulo con la vertical',25,45,1],['copa','Hondura de la copa (media caña)',5,35,1],['g','Garganta',7,18,1],['rect','Pared recta sobre la garganta',0,40,1],
-    ['Campana y caño',null],['camAng','Laterales, ángulo con la vertical',25,55,1],['flue','Caño, diámetro o lado',30,60,5],['hc','Altura del caño, m',2,10,0.5],['tg','Temperatura de gases, °C',100,350,10]
+    ['Boca',null],['W','Ancho de boca',120,240,5],['H','Alto de boca',50,90,1],['losa','Losa sobre el piso',80,95,1],['techo','Techo del quincho, desde el piso',220,450,5],
+    ['Hogar y dintel',null],['hog','Hogar, hasta la cara interior del dintel',45,95,1],['dw','Ancho del dintel',10,40,1],['r','Radio del pecho (hasta el menor lado del dintel)',0,30,1],
+    ['Pulmón',null],['arr','Arranque de la pared inclinada',20,80,1],['ang','Ángulo con la vertical',25,45,1],['g','Garganta',7,18,1],['rect','Pared recta sobre la garganta',0,40,1],
+    ['Campana y caño',null],['camAng','Laterales, ángulo con la vertical',25,55,1],['flue','Caño, diámetro o lado (cm y pulgadas)',30,60,5]
   ];
   EX.sq=0; S.sq=0;
   var f1=function(n){return n.toFixed(1)}, R=Math.round;
   function fmt(n,d){return n.toLocaleString('es-AR',{maximumFractionDigits:d||0,minimumFractionDigits:d||0})}
+  function flueTxt(p){return (p.sq?'□':'Ø')+p.flue+' ('+fmt(p.flue/2.54,1)+'″)'}
 
   function derive(p){
     var d={};
@@ -522,7 +533,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     // dilución del penacho hasta la garganta (Morton–Taylor–Turner): ascenso libre completo + ascenso guiado al 50 %
     var hEff=p.arr+0.5*Math.max(d.labH-p.arr,0), hRef=35+0.5*(104-35);
     d.dil=Math.pow(hEff/hRef,5/3); d.dilPct=d.dil*100; d.tempRel=1/d.dil;
-    d.topFloor=d.flueBot+p.losa; d.techoC=p.techo-p.losa; d.libre=p.techo-d.topFloor; d.okTecho=d.libre>=(p.marg||0);
+    d.topFloor=d.flueBot+p.losa; d.techoC=p.techo-p.losa; d.libre=p.techo-d.topFloor; d.okTecho=d.libre>=0;
     var T=p.tg+273.15; d.P=3460*p.hc*(1/293.15-1/T); d.Q=0.65*d.Af*Math.sqrt(2*d.P/0.8); d.V=d.Q/d.A; d.Vg=d.Q/d.Ag;
     d.okLab=d.over>=20&&d.over<=40&&d.overPecho>=5; d.okArr=p.arr>=p.H/2&&p.arr<=p.H; d.okAng=p.ang>=30&&p.ang<=45; d.okFlue=d.pct>=d.minPct;
     d.okG=p.g>=10&&p.g<=15&&d.Ag>=d.Af; d.okCam=p.rect>=15&&p.rect<=20; d.okCamAng=p.camAng>=30&&p.camAng<=45; d.okH=p.H<=70; d.okHog=d.labx>0;
@@ -615,7 +626,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
       dim(p.H,d.pecho,'pecho, radio '+r,'dintel '+p.dh+' × '+p.dw+', cara vertical '+(p.dh-r));
       dim(d.pecho,d.camTop,'recta '+R(d.recta)+' sobre la boca',p.rect+' sobre la garganta');
       dim(d.camTop,d.flueBot,'campana '+R(d.hc),'laterales a '+p.camAng+'°');
-      o.push('<text class="lbl" x="'+tx+'" y="'+f1(Y(d.flueBot+10))+'">caño Ø'+p.flue+' desde '+R(d.flueBot)+'</text>');
+      o.push('<text class="lbl" x="'+tx+'" y="'+f1(Y(d.flueBot+10))+'">caño '+flueTxt(p)+' desde '+R(d.flueBot)+'</text>');
       o.push('<line class="dim" x1="'+X(0)+'" y1="'+(y0+26)+'" x2="'+f1(X(d.labx))+'" y2="'+(y0+26)+'"/><text class="lbls" x="'+f1(X(d.labx/2))+'" y="'+(y0+40)+'" text-anchor="middle">pulmón '+R(d.labx)+'</text>');
       o.push('<line class="dim" x1="'+f1(X(d.labx))+'" y1="'+(y0+26)+'" x2="'+f1(xi)+'" y2="'+(y0+26)+'"/><text class="lbls" x="'+f1(X(d.labx+p.g/2))+'" y="'+(y0+40)+'" text-anchor="middle">'+p.g+'</text>');
       o.push('<line class="dim" x1="'+f1(xi)+'" y1="'+(y0+26)+'" x2="'+f1(xo)+'" y2="'+(y0+26)+'"/><text class="lbls" x="'+f1((xi+xo)/2)+'" y="'+(y0+40)+'" text-anchor="middle">'+p.dw+'</text>');
@@ -661,8 +672,8 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var X=function(c){return cx+c*s}, Y=function(c){return y0-c*s}, c=d.okFlue?'var(--ok)':'var(--bad)', o=[];
     var tc=d.okTecho?'var(--ok)':'var(--bad)';
     o.push('<line x1="'+f1(X(-p.W/2)-40)+'" y1="'+f1(Y(d.techoC))+'" x2="'+f1(X(p.W/2)+40)+'" y2="'+f1(Y(d.techoC))+'" stroke="'+tc+'" stroke-width="2" stroke-dasharray="8 5"/>');
-    o.push('<text class="lbls" x="'+f1(Rr+48)+'" y="'+f1(Y(d.techoC)+4)+'" style="fill:'+tc+'">techo a '+p.techo+' del piso · '+R(d.libre)+' libres</text>');
     var L=X(-p.W/2),Rr=X(p.W/2),fl=X(-p.flue/2),fr=X(p.flue/2);
+    o.push('<text class="lbls" x="'+f1(Rr+48)+'" y="'+f1(Y(d.techoC)+4)+'" style="fill:'+tc+'">techo a '+p.techo+' del piso · '+R(d.libre)+' libres</text>');
     svg.setAttribute('viewBox','0 0 '+Math.max(660,Rr+400)+' '+(y0+70));
     o.push('<rect class="wall" x="'+f1(L-20)+'" y="'+y0+'" width="'+f1(p.W*s+40)+'" height="12"/>');
     o.push('<rect class="wall" x="'+f1(L-14)+'" y="'+f1(Y(d.dTop))+'" width="14" height="'+f1(d.dTop*s)+'"/><rect class="wall" x="'+f1(Rr)+'" y="'+f1(Y(d.dTop))+'" width="14" height="'+f1(d.dTop*s)+'"/>');
@@ -675,7 +686,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var dr=Rr+40, tx=dr+8;
     function dim(a,b,txt){o.push('<line class="dim" x1="'+f1(dr)+'" y1="'+f1(Y(a))+'" x2="'+f1(dr)+'" y2="'+f1(Y(b))+'"/><text class="lbl" x="'+f1(tx)+'" y="'+f1(Y((a+b)/2)+5)+'">'+txt+'</text>')}
     dim(0,p.H,'boca '+p.H); dim(p.H,d.pecho,'pecho '+d.r); dim(d.pecho,d.camTop,'recta, '+R(d.recta)+' sobre la boca'); dim(d.camTop,d.flueBot,'campana '+R(d.hc));
-    o.push('<text class="big" x="'+f1(tx)+'" y="'+f1(Y(d.flueBot+8))+'" style="fill:'+c+'">caño '+(p.sq?'□':'Ø')+p.flue+' = '+f1(d.pct)+' % de la boca '+(d.okFlue?'✓':'✗ mín. '+d.minPct+' %')+'</text>');
+    o.push('<text class="big" x="'+f1(tx)+'" y="'+f1(Y(d.flueBot+8))+'" style="fill:'+c+'">caño '+flueTxt(p)+' = '+f1(d.pct)+' % de la boca '+(d.okFlue?'✓':'✗ mín. '+d.minPct+' %')+'</text>');
     o.push('<line class="dim" x1="'+f1(L)+'" y1="'+(y0+26)+'" x2="'+f1(Rr)+'" y2="'+(y0+26)+'"/><text class="lbls" x="'+cx+'" y="'+(y0+40)+'" text-anchor="middle">boca '+p.W+'</text>');
     var a=p.camAng*Math.PI/180;
     o.push('<path class="dim" d="M'+f1(L+34)+' '+f1(Y(d.camTop))+' A34 34 0 0 0 '+f1(L+34*Math.sin(a))+' '+f1(Y(d.camTop)-34*Math.cos(a))+'"/><text class="lbls" x="'+f1(L+40)+'" y="'+f1(Y(d.camTop)-10)+'" style="fill:'+(d.okCamAng?'var(--muted)':'var(--bad)')+'">'+p.camAng+'° con la vertical'+(d.okCamAng?'':' ✗ máx. 45°')+'</text>');
@@ -700,7 +711,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var cp=Math.min(p.copa||0,d.labx*0.6);
     return [
       {n:'Alto de boca',v:p.H+' cm',r:'hasta 70; 60 a 65 ideal',ok:d.okH},
-      {n:'Sección del caño',v:(p.sq?'□':'Ø')+p.flue+' = '+fmt(d.pct,1)+' % de la boca',r:(p.sq?'cuadrado: mínimo 15 %':'redondo: mínimo 10 %')+'; 12 a 13 % recomendado',ok:d.okFlue},
+      {n:'Sección del caño',v:flueTxt(p)+' = '+fmt(d.pct,1)+' % de la boca',r:(p.sq?'cuadrado: mínimo 15 %':'redondo: mínimo 10 %')+'; 12 a 13 % recomendado',ok:d.okFlue},
       {n:'Ancho de garganta',v:p.g+' cm ('+fmt(d.Ag/d.Af,1)+' veces el caño)',r:'10 a 15, referencia 12; área mayor que la del caño',ok:d.okG},
       {n:'Altura de la garganta',v:'+'+R(d.over)+' sobre la boca',r:'20 a 40 sobre la boca y por encima del pecho',ok:d.okLab},
       {n:'Arranque del pulmón',v:p.arr+' cm ('+R(p.arr/p.H*100)+' % de la boca)',r:'50 % del alto de la boca o más, nunca sobre la boca',ok:d.okArr},
@@ -708,20 +719,19 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
       {n:'Copa',v:R(cp)+' cm de hondo, media caña',r:'15 a 25 cm, nunca plana',ok:cp>=15&&cp<=25},
       {n:'Cámara de humo',v:p.rect+' cm sobre la garganta',r:'15 a 20 (1,5 a 2 gargantas)',ok:d.okCam},
       {n:'Laterales de la campana',v:p.camAng+'° con la vertical',r:'30 a 45°, nunca más de 45°',ok:d.okCamAng},
-      {n:'Margen al techo',v:R(d.libre)+' cm libres (encuentro a '+R(d.topFloor)+' del piso)',r:'el que pediste: '+(p.marg||0)+' cm o más',ok:d.okTecho},
+      {n:'Altura al techo',v:d.libre>=0?R(d.libre)+' cm libres bajo el techo (encuentro a '+R(d.topFloor)+' del piso)':'se pasa '+R(-d.libre)+' cm del techo (encuentro a '+R(d.topFloor)+' del piso)',r:'el encuentro campana‑caño debe quedar bajo el techo',ok:d.okTecho},
       {n:'Remate',v:'a definir en obra',r:'1 m sobre la cumbrera, sombrerete',ok:undefined}
     ];
   }
   function reads(d,p){
     var r=rules(p,d);
     document.getElementById('reads').innerHTML=r.filter(function(x){return x.ok!==undefined}).map(function(x){return '<div class="read '+(x.ok?'ok':'bad')+'"><b>'+x.v+'</b><span>'+x.n+' · recomendado: '+x.r+'</span></div>'}).join('')
-      +'<div class="est">Estimaciones: tiro '+fmt(d.P)+' Pa · caudal '+fmt(R(d.Q*3600/10)*10)+' m³/h · '+fmt(d.V,2)+' m/s en la boca · '+fmt(d.Vg,1)+' m/s en la garganta</div>';
     var rt=document.getElementById('reglasPrint'); if(rt) rt.innerHTML='<tr><th>Regla</th><th>Recomendado</th><th>Este diseño</th><th></th></tr>'+r.map(function(x){return '<tr class="'+(x.ok===undefined?'':(x.ok?'ok':'bad'))+'"><td>'+x.n+'</td><td>'+x.r+'</td><td>'+x.v+'</td><td>'+(x.ok===undefined?'—':(x.ok?'✓ cumple':'✗ no cumple'))+'</td></tr>'}).join('');
   }
 
   function render(){
     var p=S,d=derive(p);
-    CT.forEach(function(c){if(c[1]===null)return;var i=document.getElementById('i_'+c[0]);i.value=p[c[0]];document.getElementById('o_'+c[0]).textContent=p[c[0]]});
+    CT.forEach(function(c){if(c[1]===null)return;var i=document.getElementById('i_'+c[0]);i.value=p[c[0]];document.getElementById('o_'+c[0]).textContent=c[0]==='flue'?p.flue+' ('+fmt(p.flue/2.54,1)+'″)':p[c[0]]});
     document.getElementById('shR').className=p.sq?'':'hot';document.getElementById('shS').className=p.sq?'hot':'';
     reads(d,p);
     corte(document.getElementById('svgCorte'),p,d,false);
@@ -738,7 +748,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     frente(document.getElementById('svgFrente0'),p,d);
     var probs=[];
     var ok=d.okLab&&d.okArr&&d.okAng&&d.okFlue&&d.okG&&d.okCam&&d.okCamAng&&d.okH&&d.okHog&&d.okTecho;
-    if(!d.okTecho)probs.push('la campana llega a '+R(d.topFloor)+' del piso y el techo está a '+p.techo+' (pediste '+(p.marg||0)+' libres)');
+    if(!d.okTecho)probs.push('la campana llega a '+R(d.topFloor)+' del piso y el techo está a '+p.techo+'');
     if(!d.okH)probs.push('boca de más de 70');
     if(!d.okArr)probs.push(p.arr<p.H/2?'arranque por debajo de la mitad de la boca':'arranque por encima de la boca');
     if(!d.okAng)probs.push('pulmón fuera de 30 a 45°');
@@ -752,12 +762,12 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     document.getElementById('rP2').textContent=fmt(d.P)+' Pa con '+p.hc+' m de caño y gases a '+p.tg+' °C';
     document.getElementById('rQ2').textContent=fmt(R(d.Q*3600/10)*10)+' m³/h';
     document.getElementById('rQ3').textContent=fmt(R(d.Q*3600/10)*10)+' m³/h';
-    var rows=[['Boca',p.W+' × '+p.H],['Losa',p.losa+' del piso'],['Hogar hasta la cara interior del dintel',p.hog],['Dintel',p.dh+' alto × '+p.dw+' ancho, pecho radio '+Math.min(p.r,p.dh,p.dw)],['Pared de fondo vertical hasta',p.arr],['Pulmón',p.ang+'° con la vertical, '+R(d.labx)+' de ancho, borde a '+R(d.labH)],['Copa',p.copa+' de hondo en media caña, vuelve a la pared de fondo a '+R(d.labH+4)],['Garganta',p.g+' × '+p.W],['Pared recta hasta',R(d.camTop)+' ('+R(d.recta)+' sobre la boca, '+p.rect+' sobre la garganta)'],['Campana','laterales a '+p.camAng+'°, '+R(d.hc)+' de alto, fondo vertical'],['Caño',(p.sq?'□':'Ø')+p.flue+' desde '+R(d.flueBot)+' sobre la cocción ('+R(d.topFloor)+' del piso), recto, pegado atrás'],['Techo',p.techo+' del piso; '+R(d.libre)+' libres sobre el encuentro campana‑caño'],['Remate','≥ 1 m sobre la cumbrera, sombrerete']];
+    var rows=[['Boca',p.W+' × '+p.H],['Losa',p.losa+' del piso'],['Hogar hasta la cara interior del dintel',p.hog],['Dintel',p.dh+' alto × '+p.dw+' ancho, pecho radio '+Math.min(p.r,p.dh,p.dw)],['Pared de fondo vertical hasta',p.arr],['Pulmón',p.ang+'° con la vertical, '+R(d.labx)+' de ancho, borde a '+R(d.labH)],['Copa',p.copa+' de hondo en media caña, vuelve a la pared de fondo a '+R(d.labH+4)],['Garganta',p.g+' × '+p.W],['Pared recta hasta',R(d.camTop)+' ('+R(d.recta)+' sobre la boca, '+p.rect+' sobre la garganta)'],['Campana','laterales a '+p.camAng+'°, '+R(d.hc)+' de alto, fondo vertical'],['Caño',flueTxt(p)+' desde '+R(d.flueBot)+' sobre la cocción ('+R(d.topFloor)+' del piso), recto, pegado atrás'],['Techo',p.techo+' del piso; '+R(d.libre)+' libres sobre el encuentro campana‑caño'],['Remate','≥ 1 m sobre la cumbrera, sombrerete']];
     document.getElementById('tabla').innerHTML=rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'}).join('');
     window.__med=rows.map(function(r){return r[0]+': '+r[1]}).join('\n');
-    try{localStorage.setItem('parrilla-v2',JSON.stringify(S))}catch(e){}
+    try{localStorage.setItem('parrilla-v3',JSON.stringify(S))}catch(e){}
   }
-  try{var sv=localStorage.getItem('parrilla-v2');if(sv){var j=JSON.parse(sv);Object.keys(EX).forEach(function(k){if(typeof j[k]==='number')S[k]=j[k]})}}catch(e){}
+  try{var sv=localStorage.getItem('parrilla-v3');if(sv){var j=JSON.parse(sv);Object.keys(EX).forEach(function(k){if(typeof j[k]==='number'&&(k==='sq'||document.getElementById('i_'+k)))S[k]=j[k]})}}catch(e){}
   render();
 
   var vC=document.getElementById('vCorte'),vF=document.getElementById('vFrente');
@@ -784,7 +794,7 @@ ol.leg b{display:inline-grid;place-items:center;width:22px;height:22px;border:1.
     var vc=c.getAttribute('viewBox').split(' ').map(Number), vf=f.getAttribute('viewBox').split(' ').map(Number);
     var pad=40, head=64, W=Math.max(vc[2],vf[2])+pad*2, H=head+vc[3]+pad*2+vf[3]+pad, p=S, d=derive(p);
     var title='Parrilla argentina · boca '+p.W+' × '+p.H+' · corte lateral y vista de frente';
-    var sub='Medidas en cm desde el plano de cocción · pulmón '+p.ang+'° desde '+p.arr+' · garganta '+p.g+' · cámara de humo '+p.rect+' sobre la garganta · campana laterales '+p.camAng+'° · caño '+(p.sq?'□':'Ø')+p.flue+' desde '+R(d.flueBot)+' · losa a '+p.losa+' · techo a '+p.techo;
+    var sub='Medidas en cm desde el plano de cocción · pulmón '+p.ang+'° desde '+p.arr+' · garganta '+p.g+' · cámara de humo '+p.rect+' sobre la garganta · campana laterales '+p.camAng+'° · caño '+flueTxt(p)+' desde '+R(d.flueBot)+' · losa a '+p.losa+' · techo a '+p.techo;
     var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><style>'+fonts.join('')+paper(m?m[1]:'')+' text{font-family:Barlow,sans-serif}</style>'
       +'<rect width="100%" height="100%" fill="#fff"/><rect x="8" y="8" width="'+(W-16)+'" height="'+(H-16)+'" fill="none" stroke="#111" stroke-width="2"/>'
       +'<text x="'+pad+'" y="34" font-size="18" font-weight="700" fill="#111" font-family="Barlow Condensed, Barlow, sans-serif" letter-spacing=".04em">'+title.toUpperCase()+'</text>'
